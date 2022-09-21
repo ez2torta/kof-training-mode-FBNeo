@@ -9,30 +9,12 @@ import wave
 
 from typing import Any
 
-# audio_playing = False
-# instantiate PyAudio
+
 p = pyaudio.PyAudio()
 
-
-def play_ichigeki():
+def play_sample(sample_file_name):
     # you audio here
-    wf = wave.open('ichigeki.wav', 'rb')
-    # define callback
-    def callback(in_data, frame_count, time_info, status):
-        data = wf.readframes(frame_count)
-        return (data, pyaudio.paContinue)
-
-    # open stream using callback
-    return p.open(format=p.get_format_from_width(wf.getsampwidth()),
-                channels=wf.getnchannels(),
-                rate=wf.getframerate(),
-                output=True,
-                stream_callback=callback)
-
-
-def play_ha_ha():
-    # you audio here
-    wf = wave.open('ha-ha.wav', 'rb')
+    wf = wave.open(sample_file_name, 'rb')
     # define callback
     def callback(in_data, frame_count, time_info, status):
         data = wf.readframes(frame_count)
@@ -59,9 +41,9 @@ class MyHandler(PatternMatchingEventHandler):
         sample = self.cached_file.split(" ")[0]
         print(sample)
         if sample == "ichigeki":
-            self.stream = play_ichigeki()
+            self.stream = play_sample('ichigeki.wav')
         else:
-            self.stream = play_ha_ha()
+            self.stream = play_sample('ha-ha.wav')
         self.stream.start_stream()
 
 
