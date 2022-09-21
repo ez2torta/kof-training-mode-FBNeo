@@ -4,24 +4,66 @@ import os
 from watchdog.observers import Observer
 from watchdog.events import PatternMatchingEventHandler
 from threading import Thread
-from playsound import playsound
+import pyaudio
+import wave
+
 from typing import Any
 
 # audio_playing = False
+# instantiate PyAudio
+p = pyaudio.PyAudio()
 
+
+def play_ichigeki():
+    # you audio here
+    wf = wave.open('ichigeki.wav', 'rb')
+    # define callback
+    def callback(in_data, frame_count, time_info, status):
+        data = wf.readframes(frame_count)
+        return (data, pyaudio.paContinue)
+
+    # open stream using callback
+    return p.open(format=p.get_format_from_width(wf.getsampwidth()),
+                channels=wf.getnchannels(),
+                rate=wf.getframerate(),
+                output=True,
+                stream_callback=callback)
+
+
+def play_ha_ha():
+    # you audio here
+    wf = wave.open('ha-ha.wav', 'rb')
+    # define callback
+    def callback(in_data, frame_count, time_info, status):
+        data = wf.readframes(frame_count)
+        return (data, pyaudio.paContinue)
+
+    # open stream using callback
+    return p.open(format=p.get_format_from_width(wf.getsampwidth()),
+                channels=wf.getnchannels(),
+                rate=wf.getframerate(),
+                output=True,
+                stream_callback=callback)
 
 class MyHandler(PatternMatchingEventHandler):
     audio_playing: bool = False
+    stream : Any = None
     cached_file: str = ""
     cached_timestamp: Any = 0
 
     def _dispatch_audio_sample(self):
+        # check if already exists?
+        if self.stream:
+            self.stream.stop_stream()
+            self.stream.close()
         sample = self.cached_file.split(" ")[0]
         print(sample)
         if sample == "ichigeki":
-            playsound("ichigeki.wav")
+            self.stream = play_ichigeki()
         else:
-            playsound("ha-ha.wav")
+            self.stream = play_ha_ha()
+        self.stream.start_stream()
+
 
     def _check_cached_file(self, event):
         path = event.src_path
