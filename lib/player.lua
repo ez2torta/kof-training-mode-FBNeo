@@ -54,6 +54,16 @@ local function getDamage(player)
 	local damage = player.damage.hit
 	if (previous > current) then
 		damage = math.abs(previous - current)
+		-- file to write
+		file = io.open("test.lua", "w")
+		io.output(file)
+		if (player.side == 0) then
+			io.write("ichigeki "..tostring(damage))
+		elseif (player.side == 1) then 
+			io.write("ha-ha "..tostring(damage))
+		end
+		-- closes the open file
+		io.close(file)
 	end
 	return damage
 end
