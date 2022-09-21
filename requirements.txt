@@ -1,0 +1,2 @@
+watchdog==2.1.9
+PyAudio==0.2.12
