@@ -11,6 +11,10 @@ from typing import Any
 
 p = pyaudio.PyAudio()
 
+wav_files = {
+    "ichigeki": os.path.join("wav_files","ichigeki.wav"),
+    "ha-ha": os.path.join("wav_files","ha-ha.wav"),
+}
 
 def play_sample(sample_file_name):
     # you audio here
@@ -44,9 +48,9 @@ class MyHandler(PatternMatchingEventHandler):
         sample = self.cached_file.split(" ")[0]
         print(sample)
         if sample == "ichigeki":
-            self.stream = play_sample("ichigeki.wav")
+            self.stream = play_sample(wav_files["ichigeki"])
         else:
-            self.stream = play_sample("ha-ha.wav")
+            self.stream = play_sample(wav_files["ha-ha"])
         self.stream.start_stream()
 
     def _check_cached_file(self, event):

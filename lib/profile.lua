@@ -222,6 +222,107 @@ function profile.get()
 				}
 			}
 		},
+		{	
+			name = {"kof98"},
+			address = {
+				player = 0x108100,
+				space = 0x200
+			},
+			data = {
+				side = getByteValue(base, 0x31),
+				health = {
+					value = getWordValue(base, 0x138), 
+					max = 103, 
+					x = getPositionX(playerNumber, 124, 169), 
+					y = 21, 
+					color = "white"
+				},
+				damage = {
+					x = getPositionX(playerNumber, 105, 168),
+					y = 49,
+					color = "white",
+					max = 500
+				},
+				guard = {
+					value = getWordValue(base, 0x146), 
+					max = 103, 
+					x = getPositionX(playerNumber, 63, 222), 
+					y = 41,
+					color = "white",
+					bar = {
+						x = getPositionX(playerNumber, 84, 167), 
+						y = 41,
+						length = 52, 
+						height = 6,
+						fillColor = 0x00000040,
+						outlineColor = 0x000000FF
+					},
+					bar2 = {
+						x = getPositionX(playerNumber, 136, 167), 
+						y = 41,
+						fillColor = 0x2961DEEE,
+						outlineColor = 0
+					}
+				},
+				super = {
+					value = getByteValue(base, 0x0E8), 
+					max = 128, 
+					x = getPositionX(playerNumber, 75, 218), 
+					y = 205, 
+					color = "white",
+					timeout = {
+						value = getByteValue(base, 0x0EA), 
+						max = 64, 
+						x = getPositionX(playerNumber, 75, 218), 
+						y = 193, 
+						color = "white"
+					}
+				},
+				stun = {
+					x = getPositionX(playerNumber, 105, 168), 
+					y = 57, 
+					value = getWordValue(base, 0x13E),
+					color = "white",
+					max = 103
+				},
+				inputs = {
+					x = getPositionX(playerNumber, 49, 249),
+					y = 72
+				},
+				record = {
+					x = 134,
+					y = 65,
+					color = "red"
+				},
+				playback = {
+					x = 138,
+					y = 65,
+					color = "green"
+				}
+			},
+			cheats = {
+				boss = {
+					enabled = true,
+					description = "Unlock Bosses",
+					address = 0x10E752,
+					value = 0x01
+				},
+				time = {
+					enabled = true,
+					description = "Infinite Time",
+					address = 0x10A83A,
+					value = 0x60
+				},
+				health = {
+					enabled = true,
+					mode = "refill", -- Modes: "refill", "fixed"
+					description = "Infinite Health",
+					address = 0x138,
+					value = 20,
+					max = 103
+				}
+			}
+		},
 	}
 end
 

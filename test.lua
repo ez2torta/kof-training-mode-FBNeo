@@ -1,1 +1,0 @@
-ichigeki 5
