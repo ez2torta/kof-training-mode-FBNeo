@@ -95,9 +95,9 @@ class MyHandler(PatternMatchingEventHandler):
         print(self.cached_file)
         if character == "Robert":
             self.stream = play_sample(wav_files["HAHA"])
-        if character == "Ryo":
+        elif character == "Ryo":
             self.stream = play_sample(wav_files["AAHAIII"])
-        if character == "Kim":
+        elif character == "Kim":
             self.stream = play_sample(wav_files["gallina"])
         else:
             self.stream = play_sample(wav_files["frustration"])

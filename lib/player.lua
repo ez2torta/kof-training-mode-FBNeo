@@ -124,13 +124,12 @@ local function getDamage(player, hitting_player)
 	local previous = player.health.previous
 	local damage = player.damage.hit
 	if (previous > current) then
-		print("Character = " .. player.charaName)
-		print("Player = "..player.number)
 		damage = math.abs(previous - current)
 		-- file to write
 		file = io.open("sound_output.txt", "w")
 		io.output(file)
 		local soundOutput = hitting_player.charaName .. " hits ".. player.charaName .. damage
+		print(soundOutput)
 		io.write(soundOutput)
 		-- closes the open file
 		io.close(file)
