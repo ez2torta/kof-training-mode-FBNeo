@@ -229,6 +229,7 @@ function profile.get()
 				space = 0x200
 			},
 			data = {
+				charId = getByteValue(base, 0x71),
 				side = getByteValue(base, 0x31),
 				health = {
 					value = getWordValue(base, 0x138), 
@@ -277,13 +278,6 @@ function profile.get()
 						y = 193, 
 						color = "white"
 					}
-				},
-				superword = {
-					value = getWordValue(base, 0x0E8), 
-					max = 128,
-					x = getPositionX(playerNumber, 124, 169), 
-					y = 21, 
-					color = "white"
 				},
 				stun = {
 					x = getPositionX(playerNumber, 105, 168), 

@@ -226,7 +226,7 @@ function ui.getOSD(playerData)
 	getSuperText(playerData.super, data, playerNumber)
 	getSuperTimeoutText(playerData.super, data, playerNumber)
 	getCustomText("Stun:" .. playerData.stun.current, data.stun, playerNumber)
-	getCustomText("Damage:" .. playerData.damage.hit, data.damage, playerNumber)
+	getCustomText("Damage:"  .. playerData.damage.hit, data.damage, playerNumber)
 end
 
 function ui.getInputs(playerData)

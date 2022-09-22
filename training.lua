@@ -71,8 +71,8 @@ player.set(p2, "game", gameData)
 -- Data update functions
 -------------------------------------------------
 local function updateMemory()
-	player.update(p1)
-	player.update(p2)
+	player.update(p1, p2)
+	player.update(p2, p1)
 end
 
 local function updateInputs()

@@ -3,6 +3,8 @@ local player = {}
 function player.new(number)
 	return  {
 		number = number,
+		charaName="",
+		charId=0,
 		side = 0,
 		health = { 
 			current = 0,
@@ -19,9 +21,6 @@ function player.new(number)
 		super = {
 			value = 0,
 			timeout = 0
-		},
-		superword = {
-			value = 0
 		},
 		damage = { 
 			hit = 0,
@@ -120,25 +119,19 @@ local function printPlayer(base)
 	print("character receiving damage? "..chara)
 end
 	 
-local function getDamage(player)
+local function getDamage(player, hitting_player)
 	local current = player.health.current
 	local previous = player.health.previous
 	local damage = player.damage.hit
 	if (previous > current) then
-		print("player receiving damage? "..player.number)
-		local base = getBase(player.number, player.game)
-		-- local offset = 0x3
-		-- printLotsOfInfo(base)
-		printPlayer(base)
+		print("Character = " .. player.charaName)
+		print("Player = "..player.number)
 		damage = math.abs(previous - current)
 		-- file to write
 		file = io.open("sound_output.txt", "w")
 		io.output(file)
-		if (player.number == 1) then
-			io.write("ichigeki "..tostring(damage))
-		elseif (player.number == 2) then 
-			io.write("ha-ha "..tostring(damage))
-		end
+		local soundOutput = hitting_player.charaName .. " hits ".. player.charaName .. damage
+		io.write(soundOutput)
 		-- closes the open file
 		io.close(file)
 	end
@@ -198,16 +191,18 @@ function player.getGameData(player)
 	return player.game.data
 end 
 
-function player.update(player)
+function player.update(player, player2)
 	local data = player.game.data
 	local base = getBase(player.number, player.game)
-
 	player.side = data.side(base)
-
+	local charId = data.charId(base)
+	player.charId = charId
+	local charaName = chara_table[player.charId]
+	player.charaName = charaName
 	player.health.previous = player.health.current
 	player.health.current = checkMaxValue(data.health.value(base), data.health.max)
 	
-	player.damage.hit = checkMaxValue(getDamage(player), data.damage.max)
+	player.damage.hit = checkMaxValue(getDamage(player, player2), data.damage.max)
 
 	player.guard.previous = player.guard.current
 	player.guard.current = data.guard.value(base)
@@ -217,7 +212,6 @@ function player.update(player)
 
 	player.super.value = data.super.value(base)
 	player.super.timeout = data.super.timeout.value(base)
-	player.superword.value = data.superword.value(base)
 end
 
 return player

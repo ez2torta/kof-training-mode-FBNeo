@@ -12,9 +12,55 @@ from typing import Any
 p = pyaudio.PyAudio()
 
 wav_files = {
-    "ichigeki": os.path.join("wav_files","ichigeki.wav"),
-    "ha-ha": os.path.join("wav_files","ha-ha.wav"),
+    "ichigeki": os.path.join("wav_files", "ichigeki.wav"),
+    "ha-ha": os.path.join("wav_files", "ha-ha.wav"),
+    "HAHA": os.path.join("wav_files", "HAHA.wav"),
+    "ande_monyo": os.path.join("wav_files", "ande_monyo1.wav"),
+    "AAHAIII": os.path.join("wav_files", "AAHAIII.wav"),
+    "frustration": os.path.join("wav_files", "frustration.wav"),
+    "gallina": os.path.join("wav_files", "gallina.wav"),
 }
+chara_table = [
+    "Kyo",
+    "Benimaru",
+    "Daimon",
+    "Terry",
+    "Andy",
+    "Joe",
+    "Ryo",
+    "Robert",
+    "Yuri",
+    "Leona",
+    "Ralf",
+    "Clark",
+    "Athena",
+    "Kensou",
+    "Chin",
+    "Chizuru",
+    "Mai",
+    "King",
+    "Kim",
+    "Chang",
+    "Choi",
+    "Yashiro",
+    "Shermie",
+    "Chris",
+    "Yamazaki",
+    "Mary",
+    "Billy",
+    "Iori",
+    "Mature",
+    "Vice",
+    "Heidern",
+    "Takuma",
+    "Saisyu",
+    "Heavy D",
+    "Lucky",
+    "Brian",
+    "Rugal",
+    "Shingo",
+]
+
 
 def play_sample(sample_file_name):
     # you audio here
@@ -45,12 +91,16 @@ class MyHandler(PatternMatchingEventHandler):
         if self.stream:
             self.stream.stop_stream()
             self.stream.close()
-        sample = self.cached_file.split(" ")[0]
-        print(sample)
-        if sample == "ichigeki":
-            self.stream = play_sample(wav_files["ichigeki"])
+        character = self.cached_file.split(" ")[0]
+        print(self.cached_file)
+        if character == "Robert":
+            self.stream = play_sample(wav_files["HAHA"])
+        if character == "Ryo":
+            self.stream = play_sample(wav_files["AAHAIII"])
+        if character == "Kim":
+            self.stream = play_sample(wav_files["gallina"])
         else:
-            self.stream = play_sample(wav_files["ha-ha"])
+            self.stream = play_sample(wav_files["frustration"])
         self.stream.start_stream()
 
     def _check_cached_file(self, event):
