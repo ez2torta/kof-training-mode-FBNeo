@@ -278,6 +278,13 @@ function profile.get()
 						color = "white"
 					}
 				},
+				superword = {
+					value = getWordValue(base, 0x0E8), 
+					max = 128,
+					x = getPositionX(playerNumber, 124, 169), 
+					y = 21, 
+					color = "white"
+				},
 				stun = {
 					x = getPositionX(playerNumber, 105, 168), 
 					y = 57, 
